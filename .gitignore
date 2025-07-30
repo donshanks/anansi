@@ -1,0 +1,10 @@
+# Ignore build output directories
+/dist
+/data
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore log files
+*.log

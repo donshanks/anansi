@@ -1,0 +1,1 @@
+# initial startup directions from https://blog.logrocket.com/express-typescript-node/
