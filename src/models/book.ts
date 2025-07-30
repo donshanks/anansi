@@ -2,8 +2,8 @@ import {
     Model,
     Optional,
     DataTypes,
-    Sequelize,
 } from 'sequelize';
+import sequelize from '../config/sequelize';
 
 interface BookAttributes {
     id: string;
@@ -34,45 +34,44 @@ class Book extends Model<BookAttributes, BookCreationAttrbutes> implements BookA
     public readonly updatedAt!: Date;
 }
 
-export function createBookModel(sequelize: Sequelize): typeof Book {
-    Book.init({
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
-        },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        isbn: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        openLibraryId: {
-            type: DataTypes.STRING,
-        },
-        openLibraryCoverId: {
-            type: DataTypes.STRING,
-        },
-        openLibraryBookUrl: {
-            type: DataTypes.STRING,
-        },
-        numPages: {
-            type: DataTypes.INTEGER,
-        },
-        pubDate: {
-            type: DataTypes.DATE,
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-        }
-    }, {
-        sequelize
-    });
-    return Book;
-}
+Book.init({
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+    },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    isbn: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    openLibraryId: {
+        type: DataTypes.STRING,
+    },
+    openLibraryCoverId: {
+        type: DataTypes.STRING,
+    },
+    openLibraryBookUrl: {
+        type: DataTypes.STRING,
+    },
+    numPages: {
+        type: DataTypes.INTEGER,
+    },
+    pubDate: {
+        type: DataTypes.DATE,
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+    }
+}, {
+    sequelize
+});
+
+export default Book;

@@ -1,20 +1,15 @@
 import express from 'express';
-import { Sequelize } from 'sequelize';
 
-// import itemRoutes from './routes/itemRoutes';
+import bookRoutes from './routes/bookRoutes';
 import { errorHandler } from './middlewares/errorHandler';
+// import { createBookModel } from './models/book';
+// import { createAuthorModel } from './models/author';
 
 const app = express();
-
 app.use(express.json());
 
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'data/devdb.sqlite'
-})
-
 // Routes
-// app.use('/api/items', itemRoutes);
+app.use('/api/books', bookRoutes);
 
 // Global error handler (should be after routes)
 app.use(errorHandler);
