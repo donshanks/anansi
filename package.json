@@ -23,11 +23,14 @@
     "nodemon": "^3.1.10",
     "npm": "^11.5.1",
     "prettier": "^3.6.2",
+    "sequelize-cli": "^6.6.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "axios": "^1.11.0",
     "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
     "typescript-eslint": "^8.38.0"
   }
 }

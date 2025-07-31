@@ -71,6 +71,7 @@ Book.init({
         type: DataTypes.DATE,
     }
 }, {
+    tableName: 'books',
     sequelize
 });
 
