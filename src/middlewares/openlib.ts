@@ -42,6 +42,17 @@ export const getBookByISBN = async (isbn: string) => {
     };
 };
 
+export const getEditionsByWorkID = async (olid: string) => {
+    try {
+        const response = await getOpenlibClient('base').get(`/works/${olid}/editions.json`);
+        return response
+    }
+    catch (error) {
+        console.log(error);
+        return {};
+    }
+}
+
 export class OpenLibBook {
     public olid: string;
     public publishers: string[];
@@ -125,6 +136,122 @@ export class OpenLibBook {
     }
 }
 
+// Interface for the book entry
+export class OpenLibBookEdition {
+    public publishers: string[];
+    public number_of_pages: number;
+    public subtitle: string;
+    public weight: string;
+    public covers: number[];
+    public physical_format: string;
+    public last_modified: DateTimeObject;
+    public latest_revision: number;
+    public key: string;
+    public authors: KeyObject[];
+    public subjects: string[];
+    public isbn_13: string[];
+    public title: string;
+    public identifiers: IdentifierObject;
+    public created: DateTimeObject;
+    public languages: KeyObject[];
+    public isbn_10: string[];
+    public publish_date: string;
+    public oclc_numbers: string[];
+    public works: KeyObject[];
+    public type: KeyObject;
+    public physical_dimensions: string;
+    public revision: number;
+    public table_of_contents: TableOfContentsEntry[];
+    public lc_classifications: string[];
+    public url: string[];
+    public publish_places: string[];
+    public contributions: string[];
+    public uri_descriptions: string[];
+    public pagination: string;
+    public source_records: string[];
+    public dewey_decimal_class: string[];
+    public lccn: string[];
+    public publish_country: string;
+    public by_statement: string;
+    public uris: string[];
+
+    constructor(entry: {
+        publishers: string[];
+        number_of_pages: number;
+        subtitle: string;
+        weight: string;
+        covers: number[];
+        physical_format: string;
+        last_modified: DateTimeObject;
+        latest_revision: number;
+        key: string;
+        authors: KeyObject[];
+        subjects: string[];
+        isbn_13: string[];
+        title: string;
+        identifiers: IdentifierObject;
+        created: DateTimeObject;
+        languages: KeyObject[];
+        isbn_10: string[];
+        publish_date: string;
+        oclc_numbers: string[];
+        works: KeyObject[];
+        type: KeyObject;
+        physical_dimensions: string;
+        revision: number;
+        table_of_contents: TableOfContentsEntry[];
+        lc_classifications: string[];
+        url: string[];
+        publish_places: string[];
+        contributions: string[];
+        uri_descriptions: string[];
+        pagination: string;
+        source_records: string[];
+        dewey_decimal_class: string[];
+        lccn: string[];
+        publish_country: string;
+        by_statement: string;
+        uris: string[];
+    }) {
+        this.publishers = entry.publishers;
+        this.number_of_pages = entry.number_of_pages;
+        this.subtitle = entry.subtitle;
+        this.weight = entry.weight;
+        this.covers = entry.covers;
+        this.physical_format = entry.physical_format;
+        this.last_modified = entry.last_modified;
+        this.latest_revision = entry.latest_revision;
+        this.key = entry.key;
+        this.authors = entry.authors;
+        this.subjects = entry.subjects;
+        this.isbn_13 = entry.isbn_13;
+        this.title = entry.title;
+        this.identifiers = entry.identifiers;
+        this.created = entry.created;
+        this.languages = entry.languages;
+        this.isbn_10 = entry.isbn_10;
+        this.publish_date = entry.publish_date;
+        this.oclc_numbers = entry.oclc_numbers;
+        this.works = entry.works;
+        this.type = entry.type;
+        this.physical_dimensions = entry.physical_dimensions;
+        this.revision = entry.revision;
+        this.table_of_contents = entry.table_of_contents;
+        this.lc_classifications = entry.lc_classifications;
+        this.url = entry.url;
+        this.publish_places = entry.publish_places;
+        this.contributions = entry.contributions;
+        this.uri_descriptions = entry.uri_descriptions;
+        this.pagination = entry.pagination;
+        this.source_records = entry.source_records;
+        this.dewey_decimal_class = entry.dewey_decimal_class;
+        this.lccn = entry.lccn;
+        this.publish_country = entry.publish_country;
+        this.by_statement = entry.by_statement;
+        this.uris = entry.uris;
+    }
+}
+
 interface UrlHash {
     [key: string]: string;
 }
@@ -134,4 +261,17 @@ interface KeyObject {
 interface DateTimeObject {
     type: "/type/datetime";
     value: string;
+}
+
+interface IdentifierObject {
+    goodreads?: string[];
+    librarything?: string[];
+    [key: string]: string[] | undefined;
+}
+
+interface TableOfContentsEntry {
+    level: number;
+    label: string;
+    title: string;
+    pagenum: string;
 }
