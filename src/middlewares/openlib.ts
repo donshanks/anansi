@@ -112,6 +112,10 @@ export class OpenLibBook {
         this.created = data.created;
         this.last_modified = data.last_modified;
 
+        if (this.type === undefined && this.key.includes('work')) {
+            this.type = { key: '/type/work' };
+        }
+
         this.olid = '';
         if (this.key) {
             this.olid = `${this.key.split(/\//).pop()}`;
