@@ -1,5 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { getBookList, getBookByISBN, OpenLibBook } from '../middlewares/openlib';
+import {
+    getBookList,
+    getBookByISBN,
+    getEditionsByWorkID,
+    OpenLibBook,
+    OpenLibBookEdition
+} from '../middlewares/openlib';
+import { runInNewContext } from 'vm';
 
 // Search by Book Title
 export const searchByTitle = async (req: Request, res: Response, next: NextFunction) => {
@@ -19,7 +26,6 @@ export const searchByTitle = async (req: Request, res: Response, next: NextFunct
     res.json(searchResponse);
 };
 
-
 // Search by Book ISBN
 export const searchByIsbn = async (req: Request, res: Response, next: NextFunction) => {
     const olBookData: OpenLibBook = await getBookByISBN(`${req.query.q}`);
@@ -32,3 +38,22 @@ export const searchByIsbn = async (req: Request, res: Response, next: NextFuncti
     }
     res.json(searchResponse);
 };
+
+// Get a list of editions of a work
+export const getEditionsOfWork = async (req: Request, res: Response, next: NextFunction) => {
+    const olWorkData = await getEditionsByWorkID(`${req.query.olid}`);
+    let editions: OpenLibBookEdition[] = [];
+
+    for (let i = 0; i < olWorkData.length; i++) {
+        editions.push(new OpenLibBookEdition(olWorkData[i]));
+    }
+
+    let searchResponse = {
+        timestamp: new Date().toISOString(),
+        function: 'getEditionsByWork',
+        params: req.query,
+        docs: editions
+    }
+
+    res.json(searchResponse);
+}

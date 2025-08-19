@@ -45,7 +45,7 @@ export const getBookByISBN = async (isbn: string) => {
 export const getEditionsByWorkID = async (olid: string) => {
     try {
         const response = await getOpenlibClient('base').get(`/works/${olid}/editions.json`);
-        return response
+        return response.data.entries;
     }
     catch (error) {
         console.log(error);
